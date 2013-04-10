@@ -6,7 +6,7 @@ Debug your express app using the Chrome console.
 
 Install the chrome extension from https://chrome.google.com/webstore/detail/chrome-logger/noaneddfkdjfnfdakjjmocngnfkfehhd
 
-    > npm i express-chrome-logger
+    $ npm i express-chrome-logger
 
 ## Example
 
