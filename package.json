@@ -1,0 +1,19 @@
+{
+  "name": "express-chrome-logger",
+  "description": "Debug your express app using the Chrome console.",
+  "version": "0.0.1",
+  "author": "Ola Holmström <olaholmstrom+github@gmail.com>",
+  "keywords": ["logger", "chrome", "express"],
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/olahol/express-chrome-logger.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/olahol/express-chrome-logger/raw/master/LICENSE"
+    }
+  ],
+  "engines": { "node": ">= 0.6.0" }
+}
