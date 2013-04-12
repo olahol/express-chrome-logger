@@ -1,7 +1,7 @@
 {
   "name": "express-chrome-logger",
   "description": "Debug your express app using the Chrome console.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Ola Holmström <olaholmstrom+github@gmail.com>",
   "keywords": ["logger", "chrome", "express"],
   "main": "./index.js",

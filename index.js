@@ -1,11 +1,6 @@
 var util = require("util")
   , config = require("./package.json");
 
-var backtrace = function(e) {
-  return e.stack.split("\n")[3].match(/at ([^:]+):(\d+)/)
-          .slice(-2).join(":");
-};
-
 var encode = function(data) {
   return new Buffer(JSON.stringify(data)).toString("base64");
 };
@@ -17,18 +12,21 @@ module.exports = function (req, res, next) {
     , rows: []
   };
 
-  var log = function (type) {
+  var log = function (type, l) {
+    l = l ? l : 2;
     return function () {
-     data.rows.push([
+      var back = new Error().stack.split("\n")[l]
+                  .match(/at [^ \/]* *\(?([^:]+):(\d+)/).slice(-2).join(" : ");
+      data.rows.push([
         Array.prototype.slice.call(arguments)
-        , backtrace(new Error())
+        , back
         , type
       ]);
       try {
         if (!res.headerSent) res.set("X-ChromeLogger-Data", encode(data));
       } catch (e) {
         data.rows.pop();
-        log("error")(e.toString());
+        log("error", 3)(e.toString());
       }
     };
   };
@@ -41,7 +39,7 @@ module.exports = function (req, res, next) {
     , group: log("group")
     , groupEnd: log("groupEnd")
     , groupCollapsed: log("groupCollapsed")
-    , dir: function (obj) { log("")(util.inspect(obj)); }
+    , dir: function (obj) { log("", 3)(util.inspect(obj)); }
   };
 
   next();
