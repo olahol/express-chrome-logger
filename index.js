@@ -1,8 +1,8 @@
 var util = require("util")
   , config = require("./package.json");
 
-var backtrace = function() {
-  return new Error().stack.split("\n")[3].match(/at ([^:]+):(\d+)/)
+var backtrace = function(e) {
+  return e.stack.split("\n")[3].match(/at ([^:]+):(\d+)/)
           .slice(-2).join(":");
 };
 
@@ -19,12 +19,17 @@ module.exports = function (req, res, next) {
 
   var log = function (type) {
     return function () {
-      data.rows.push([
-        Array.prototype.slice.call(arguments)
-        , backtrace()
-        , type
-      ]);
-      res.set("X-ChromeLogger-Data", encode(data));
+      try {
+       data.rows.push([
+          Array.prototype.slice.call(arguments)
+          , backtrace(new Error())
+          , type
+        ]);
+        if (!res.headersSent) res.set("X-ChromeLogger-Data", encode(data));
+      } catch (e) {
+        data.rows.pop();
+        log("error")(e.toString());
+      }
     };
   };
 

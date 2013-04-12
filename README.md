@@ -22,7 +22,8 @@ app.get("/", function(req, res) {
   res.console.warn("Warning!");
   res.console.error("Error!");
   res.console.log(req.headers);
-  res.console.dir(req); // log circular json
+  res.console.log(req); // error logging circular object
+  res.console.dir(req); // use util.inspect on object
   res.console.group("Grouped");
   res.console.log("1");
   res.console.log("2");
