@@ -15,14 +15,12 @@ module.exports = function (req, res, next) {
   var log = function (type, l) {
     l = l ? l : 2;
     return function () {
-      var back = new Error().stack.split("\n")[l]
-                  .match(/at [^ \/]* *\(?([^:]+):(\d+)/).slice(-2).join(" : ");
-      data.rows.push([
-        Array.prototype.slice.call(arguments)
-        , back
-        , type
-      ]);
       try {
+        data.rows.push([
+          Array.prototype.slice.call(arguments)
+          , new Error().stack.split("\n")[l].trim()
+          , type
+        ]);
         if (!res.headerSent) res.set("X-ChromeLogger-Data", encode(data));
       } catch (e) {
         data.rows.pop();

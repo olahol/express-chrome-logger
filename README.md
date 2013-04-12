@@ -33,7 +33,24 @@ app.get("/", function(req, res) {
   res.console.log("2");
   res.console.groupEnd();
   res.send("");
+  res.console.log("Wont be logged because headers have already been sent.");
 });
 
 app.listen(3000);
 ```
+
+## Methods
+
+* `res.console.log`
+* `res.console.info`
+* `res.console.dir`
+* `res.console.warn`
+* `res.console.error`
+* `res.console.group`
+* `res.console.groupEnd`
+* `res.console.groupCollapse`
+
+## Links
+
+* [Chrome Logger](http://craig.is/writing/chrome-logger)
+* [node-chromelogger](https://github.com/yannickcr/node-chromelogger) another implemenation of the Chrome logger protocol for node.js.
