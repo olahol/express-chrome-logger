@@ -1,50 +1,42 @@
-var util = require("util");
+var util = require("util")
+  , config = require("./package.json");
 
 var backtrace = function() {
-    var e = new Error();
-    var parts = e.stack.split("\n")[3].split(':');
-    var file = parts[0].substr(7);
-    var line = parts[1];
-    return file + " : " + line;
+  return new Error().stack.split("\n")[3].match(/at ([^:]+):(\d+)/)
+          .slice(-2).join(":");
 };
 
-var base64 = function(str) {
-  return new Buffer(str).toString("base64").replace("\n", "");
+var encode = function(data) {
+  return new Buffer(JSON.stringify(data)).toString("base64");
 };
 
 module.exports = function (req, res, next) {
   var data = {
-    version: "0.0.1"
+    version: config.version
     , columns: ["log", "backtrace", "type"]
     , rows: []
   };
 
+  var log = function (type) {
+    return function () {
+      data.rows.push([
+        Array.prototype.slice.call(arguments)
+        , backtrace()
+        , type
+      ]);
+      res.set("X-ChromeLogger-Data", encode(data));
+    };
+  };
+
   res.console = {
-    log: function () {
-      var row = [ Array.prototype.slice.call(arguments), backtrace(), ""];
-      data.rows.push(row)
-      res.set("X-ChromeLogger-Data", base64(JSON.stringify(data)));
-    }
-    , info: function () {
-      var row = [ Array.prototype.slice.call(arguments), backtrace(), ""];
-      data.rows.push(row)
-      res.set("X-ChromeLogger-Data", base64(JSON.stringify(data)));
-    }
-    , dir: function (obj) {
-      var row = [ [util.inspect(obj)], backtrace(), ""];
-      data.rows.push(row)
-      res.set("X-ChromeLogger-Data", base64(JSON.stringify(data)));
-    }
-    , warn: function (obj) {
-      var row = [ Array.prototype.slice.call(arguments), backtrace(), "warn"];
-      data.rows.push(row)
-      res.set("X-ChromeLogger-Data", base64(JSON.stringify(data)));
-    }
-    , error: function (obj) {
-      var row = [ Array.prototype.slice.call(arguments), backtrace(), "error"];
-      data.rows.push(row)
-      res.set("X-ChromeLogger-Data", base64(JSON.stringify(data)));
-    }
+    log: log("")
+    , info: log("info")
+    , warn: log("warn")
+    , error: log("error")
+    , group: log("group")
+    , groupEnd: log("groupEnd")
+    , groupCollapsed: log("groupCollapsed")
+    , dir: function (obj) { log("")(util.inspect(obj)); }
   };
 
   next();

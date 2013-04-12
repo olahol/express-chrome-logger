@@ -18,9 +18,19 @@ app.use(require("express-chrome-logger"));
 
 app.get("/", function(req, res) {
   res.console.log("Hello", "console!");
+  res.console.info("Info!");
   res.console.warn("Warning!");
   res.console.error("Error!");
-  res.console.dir(req.headers);
+  res.console.log(req.headers);
+  res.console.dir(req); // log circular json
+  res.console.group("Grouped");
+  res.console.log("1");
+  res.console.log("2");
+  res.console.groupEnd();
+  res.console.groupCollapsed("Grouped collapsed");
+  res.console.log("1");
+  res.console.log("2");
+  res.console.groupEnd();
   res.send("");
 });
 
