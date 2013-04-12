@@ -19,13 +19,13 @@ module.exports = function (req, res, next) {
 
   var log = function (type) {
     return function () {
+     data.rows.push([
+        Array.prototype.slice.call(arguments)
+        , backtrace(new Error())
+        , type
+      ]);
       try {
-       data.rows.push([
-          Array.prototype.slice.call(arguments)
-          , backtrace(new Error())
-          , type
-        ]);
-        if (!res.headersSent) res.set("X-ChromeLogger-Data", encode(data));
+        if (!res.headerSent) res.set("X-ChromeLogger-Data", encode(data));
       } catch (e) {
         data.rows.pop();
         log("error")(e.toString());
