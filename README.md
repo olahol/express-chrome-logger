@@ -19,9 +19,14 @@ app.use(require("express-chrome-logger"));
 app.get("/", function(req, res) {
   res.console.log("Running express %s", express.version);
 
-  res.console.group("Request", function () {
+  res.console.groupAs("Request", function () {
     res.console.dir(req);
   });
+
+  res.console.assert(
+    req.headers["user-agent"].search(/Chrome/) !== -1
+    , "Not using Chrome"
+  );
 
   res.send("");
 });
@@ -36,6 +41,12 @@ Log messages to Chrome console.
 * * *
 
 ### res.console.info([data], [...])
+
+Same as `res.console.log`.
+
+* * *
+
+### res.console.debug([data], [...])
 
 Same as `res.console.log`.
 
@@ -60,7 +71,25 @@ Use `util.inspect` on `obj`.
 
 * * *
 
-### res.console.group(name, f())
+### res.console.assert(test, msg)
+
+Log `msg` as error to Chrome console if `test` is false.
+
+* * *
+
+### res.console.group(name)
+
+Create a Chrome console group.
+
+* * *
+
+### res.console.groupEnd()
+
+End a Chrome console group.
+
+* * *
+
+### res.console.groupAs(name, f())
 
 Create a collapsed group around messages in `f`.
 

@@ -32,12 +32,14 @@ module.exports = function (req, res, next) {
   res.console = {
     log: log("")
     , info: log("info")
+    , debug: log("")
     , warn: log("warn")
     , error: log("error")
     , dir: function (obj) { log("", 3)(util.inspect(obj)); }
-    , group: function (name, f) {
-      log("groupCollapsed", 3)(name); f(); log("groupEnd", 3)();
-    }
+    , group: log("group")
+    , groupEnd: log("groupEnd")
+    , groupAs: function (name, f) { log("groupCollapsed", 3)(name); f(); log("groupEnd", 3)(); }
+    , assert: function (test, msg) { if (!test) log("error", 3)("Assertion failed: " + msg); }
   };
 
   next();
