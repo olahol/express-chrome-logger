@@ -103,7 +103,7 @@ Create a collapsed group around messages in `f`.
 
 ### res.console.groupAssert(test, msg, f())
 
-Log messages in `f` if test is false.
+Log messages in `f` if `test` is false.
 
 ## Links
 
