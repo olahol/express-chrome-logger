@@ -17,7 +17,11 @@ module.exports = function (req, res, next) {
     return function () {
       try {
         data.rows.push([
-          Array.prototype.slice.call(arguments)
+          Array.prototype.slice.call(arguments).map(function (a) {
+            if (!a || typeof a !== "object") return a + "";
+            a.___class_name = a.constructor.name;
+            return a;
+          })
           , new Error().stack.split("\n")[l].trim()
           , type
         ]);
@@ -31,16 +35,22 @@ module.exports = function (req, res, next) {
 
   res.console = {
     log: log("")
-    , info: log("info")
+    , info: log("")
     , debug: log("")
     , warn: log("warn")
     , error: log("error")
-    , dir: function (obj) { log("", 3)(util.inspect(obj)); }
     , group: log("group")
     , groupEnd: log("groupEnd")
+    , groupCollapsed: log("groupCollapsed")
+    , dir: function (obj) { log("", 3)(util.inspect(obj)); }
     , groupAs: function (name, f) { log("groupCollapsed", 3)(name); f(); log("groupEnd", 3)(); }
     , assert: function (test, msg) { if (!test) log("error", 3)("Assertion failed: " + msg); }
+    , groupAssert: function (test, msg, f) {
+      if (!test) {
+        log("groupCollapsed", 3)("Assertion failed: " + msg); f(); log("groupEnd", 3)();
+      }
+    }
   };
 
-  next();
+  if (typeof next === "function") next();
 };

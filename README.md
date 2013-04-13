@@ -83,6 +83,12 @@ Create a Chrome console group.
 
 * * *
 
+### res.console.groupCollapsed(name)
+
+Create a Chrome console group that is collapsed.
+
+* * *
+
 ### res.console.groupEnd()
 
 End a Chrome console group.
@@ -92,6 +98,12 @@ End a Chrome console group.
 ### res.console.groupAs(name, f())
 
 Create a collapsed group around messages in `f`.
+
+* * *
+
+### res.console.groupAssert(test, msg, f())
+
+Log messages in `f` if test is false.
 
 ## Links
 
