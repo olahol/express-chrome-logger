@@ -34,10 +34,10 @@ module.exports = function (req, res, next) {
     , info: log("info")
     , warn: log("warn")
     , error: log("error")
-    , group: log("group")
-    , groupEnd: log("groupEnd")
-    , groupCollapsed: log("groupCollapsed")
     , dir: function (obj) { log("", 3)(util.inspect(obj)); }
+    , group: function (name, f) {
+      log("groupCollapsed", 3)(name); f(); log("groupEnd", 3)();
+    }
   };
 
   next();

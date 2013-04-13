@@ -14,41 +14,55 @@ Install the chrome extension from https://chrome.google.com/webstore/detail/chro
 var express = require("express");
 var app = express();
 
-app.use(require("express-chrome-logger"));
+app.use(require("./index.js"));
 
 app.get("/", function(req, res) {
-  res.console.log("Hello", "console!");
-  res.console.info("Info!");
-  res.console.warn("Warning!");
-  res.console.error("Error!");
-  res.console.log(req.headers);
-  res.console.log(req); // error logging circular object
-  res.console.dir(req); // use util.inspect on object
-  res.console.group("Grouped");
-  res.console.log("1");
-  res.console.log("2");
-  res.console.groupEnd();
-  res.console.groupCollapsed("Grouped collapsed");
-  res.console.log("1");
-  res.console.log("2");
-  res.console.groupEnd();
-  res.send("");
-  res.console.log("Wont be logged because headers have already been sent.");
-});
+  res.console.log("Running express %s", express.version);
 
-app.listen(3000);
+  res.console.group("Request", function () {
+    res.console.dir(req);
+  });
+
+  res.send("");
+});
 ```
 
-## Methods
+## Documentation
 
-* `res.console.log`
-* `res.console.info`
-* `res.console.dir`
-* `res.console.warn`
-* `res.console.error`
-* `res.console.group`
-* `res.console.groupEnd`
-* `res.console.groupCollapse`
+### res.console.log([data], [...])
+
+Log messages to Chrome console.
+
+* * *
+
+### res.console.info([data], [...])
+
+Same as `res.console.log`.
+
+* * *
+
+### res.console.warn([data], [...])
+
+Log warnings to Chrome console.
+
+* * *
+
+### res.console.error([data], [...])
+
+Log errors to Chrome console, note that this method is not the same as
+`res.console.warn` as in standard node.js.
+
+* * *
+
+### res.console.dir(obj)
+
+Use `util.inspect` on `obj`.
+
+* * *
+
+### res.console.group(name, f())
+
+Create a collapsed group around messages in `f`.
 
 ## Links
 
