@@ -14,7 +14,7 @@ Install the chrome extension from https://chrome.google.com/webstore/detail/chro
 var express = require("express");
 var app = express();
 
-app.use(require("./index.js"));
+app.use(require("express-chrome-logger"));
 
 app.get("/", function(req, res) {
   res.console.log("Running express %s", express.version);
