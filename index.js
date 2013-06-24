@@ -37,6 +37,7 @@ module.exports = function (req, res, next) {
     log: log("")
     , info: log("")
     , debug: log("")
+    , table: log("")
     , warn: log("warn")
     , error: log("error")
     , group: log("group")
