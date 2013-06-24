@@ -40,6 +40,12 @@ Log messages to Chrome console.
 
 * * *
 
+### res.console.table([obj, obj, ...])
+
+Log data objects to Chrome console.
+
+* * *
+
 ### res.console.info([data], [...])
 
 Same as `res.console.log`.
