@@ -1,8 +1,12 @@
 {
   "name": "express-chrome-logger",
   "description": "Debug your express app using the Chrome console.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Ola Holmström <olaholmstrom+github@gmail.com>",
+  "contributors": {
+    "name": "Ryan Wu",
+    "email": "flyworld@gmail.com"
+  },
   "keywords": ["middleware", "debugging", "logging","logger", "chrome", "express"],
   "main": "./index.js",
   "repository": {
