@@ -1,8 +1,9 @@
 var util = require("util")
+  , stringify = require("json-stringify-safe")
   , config = require("./package.json");
 
 var encode = function(data) {
-  return new Buffer(JSON.stringify(data)).toString("base64");
+  return new Buffer(stringify(data)).toString("base64");
 };
 
 module.exports = function (req, res, next) {

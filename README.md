@@ -1,12 +1,19 @@
 # express-chrome-logger
 
-Debug your express app using the Chrome console.
+[![NPM version][npm-image]][npm-url]
+[![Downloads][downloads-image]][downloads-url]
+[![Size][size-image]][size-url]
+
+Debug your express app using the console.
 
 ## Install
 
-Install the chrome extension from https://chrome.google.com/webstore/detail/chrome-logger/noaneddfkdjfnfdakjjmocngnfkfehhd
+Install the chrome extension from the [chrome webstore](https://chrome.google.com/webstore/detail/chrome-logger/noaneddfkdjfnfdakjjmocngnfkfehhd),
+or use **Firefox Nightly** which now natively supports the chrome logger! :clap:
 
-    $ npm i express-chrome-logger
+```bash
+$ npm i express-chrome-logger --save
+```
 
 ## Example
 
@@ -17,7 +24,7 @@ var app = express();
 app.use(require("express-chrome-logger"));
 
 app.get("/", function(req, res) {
-  res.console.log("Running express %s", express.version);
+  res.console.log("Hello from your server :)");
 
   res.console.groupAs("Request", function () {
     res.console.dir(req);
@@ -30,6 +37,8 @@ app.get("/", function(req, res) {
 
   res.send("");
 });
+
+app.listen(5000);
 ```
 
 ## Documentation
@@ -111,7 +120,11 @@ Create a collapsed group around messages in `f`.
 
 Log messages in `f` if `test` is false.
 
-## Links
+[size-image]: https://badge-size.herokuapp.com/olahol/express-chrome-logger/master/index.js.svg
+[size-url]: https://github.com/olahol/express-chrome-logger/index.js
 
-* [Chrome Logger](http://craig.is/writing/chrome-logger)
-* [node-chromelogger](https://github.com/yannickcr/node-chromelogger) another implemenation of the Chrome logger protocol for node.js.
+[npm-image]: https://img.shields.io/npm/v/express-chrome-logger.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/express-chrome-logger
+
+[downloads-image]: http://img.shields.io/npm/dm/express-chrome-logger.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/express-chrome-logger
