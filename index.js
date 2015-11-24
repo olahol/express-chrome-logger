@@ -26,7 +26,7 @@ module.exports = function (req, res, next) {
           , new Error().stack.split("\n")[l].trim()
           , type
         ]);
-        if (!res.headerSent) res.set("X-ChromeLogger-Data", encode(data));
+        if (!res.headersSent) res.set("X-ChromeLogger-Data", encode(data));
       } catch (e) {
         data.rows.pop();
         log("error", 3)(e.toString());
