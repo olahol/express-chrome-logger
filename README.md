@@ -9,7 +9,7 @@ Debug your express app using the console.
 ## Install
 
 Install the chrome extension from the [chrome webstore](https://chrome.google.com/webstore/detail/chrome-logger/noaneddfkdjfnfdakjjmocngnfkfehhd),
-or use **Firefox Nightly** which now natively supports the chrome logger! :clap:
+or use **Firefox Developer Edition** which now natively supports the chrome logger! :clap:
 
 ```bash
 $ npm i express-chrome-logger --save
