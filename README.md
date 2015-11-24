@@ -120,6 +120,13 @@ Create a collapsed group around messages in `f`.
 
 Log messages in `f` if `test` is false.
 
+
+## Contributors
+
+* Ola Holmström (@olahol)
+* Ryan Wu (@ryanhanwu)
+* Alex Art (@elennaro)
+
 [size-image]: https://badge-size.herokuapp.com/olahol/express-chrome-logger/master/index.js.svg
 [size-url]: https://github.com/olahol/express-chrome-logger/index.js
 
